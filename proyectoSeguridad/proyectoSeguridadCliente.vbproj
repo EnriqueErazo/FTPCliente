@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5F6152A9-E8C8-42B4-8D4B-3E2A65EC6A77}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>proyectoSeguridad.My.MyApplication</StartupObject>
-    <RootNamespace>proyectoSeguridad</RootNamespace>
-    <AssemblyName>proyectoSeguridad</AssemblyName>
+    <StartupObject>proyectoSeguridadCliente.My.MyApplication</StartupObject>
+    <RootNamespace>proyectoSeguridadCliente</RootNamespace>
+    <AssemblyName>proyectoSeguridadCliente</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -20,7 +20,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>proyectoSeguridad.xml</DocumentationFile>
+    <DocumentationFile>proyectoSeguridadCliente.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -30,7 +30,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>proyectoSeguridad.xml</DocumentationFile>
+    <DocumentationFile>proyectoSeguridadCliente.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
