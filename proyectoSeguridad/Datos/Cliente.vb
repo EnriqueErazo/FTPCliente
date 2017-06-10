@@ -32,7 +32,7 @@ Public Class Cliente
 		End Set
 	End Property
 #End Region
-#Region "METODOS "
+#Region "METODOS"
 	Public Sub Conectar()
 		Dim tcpClnt As TcpClient
 		Dim tcpThd As Thread 'Se encarga de escuchar mensajes enviados por el Servidor 
