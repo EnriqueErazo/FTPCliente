@@ -43,7 +43,7 @@ Public Class frmCliente
 			If selector.ShowDialog() = Windows.Forms.DialogResult.OK Then
 				Dim datos As String = selector.FileName
 				Dim detalle As New FileInfo(datos)
-				lblBajar.Caption = "Ruta descarga: " : lblSubir.Caption = "Ruta  carga: " & selector.FileName
+				lblBajar.Caption = "Ruta descarga: " : lblSubir.Caption = "Ruta carga: " & selector.FileName
 				_valor1 = frmLogin.txtUsuario.Text
 				_valor2 = detalle.Name
 				_valor3 = codifica(selector.FileName)
