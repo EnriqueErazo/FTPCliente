@@ -47,6 +47,11 @@ Public Class Cliente
 		tcpThd = New Thread(AddressOf LeerSocket)
 		tcpThd.Start()
 	End Sub
+	Public Sub Desconectar()
+		Dim tcpClnt As TcpClient
+		tcpClnt = New TcpClient()
+		tcpClnt.Close()
+	End Sub
 	Public Sub EnviarDatos(ByVal Datos As String)
 		Dim BufferDeEscritura() As Byte
 		BufferDeEscritura = Encoding.ASCII.GetBytes(Datos)

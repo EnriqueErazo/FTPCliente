@@ -73,17 +73,17 @@ Partial Class frmLogin
 		'
 		'rtxt2
 		'
-		Me.rtxt2.Location = New System.Drawing.Point(334, 126)
+		Me.rtxt2.Location = New System.Drawing.Point(349, 160)
 		Me.rtxt2.Name = "rtxt2"
-		Me.rtxt2.Size = New System.Drawing.Size(338, 111)
+		Me.rtxt2.Size = New System.Drawing.Size(323, 149)
 		Me.rtxt2.TabIndex = 19
 		Me.rtxt2.Text = ""
 		'
 		'rtxt1
 		'
-		Me.rtxt1.Location = New System.Drawing.Point(334, 9)
+		Me.rtxt1.Location = New System.Drawing.Point(349, 5)
 		Me.rtxt1.Name = "rtxt1"
-		Me.rtxt1.Size = New System.Drawing.Size(338, 111)
+		Me.rtxt1.Size = New System.Drawing.Size(323, 149)
 		Me.rtxt1.TabIndex = 18
 		Me.rtxt1.Text = ""
 		'
@@ -118,6 +118,7 @@ Partial Class frmLogin
 		Me.txtPassword.Location = New System.Drawing.Point(140, 122)
 		Me.txtPassword.MaxLength = 30
 		Me.txtPassword.Name = "txtPassword"
+		Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(126)
 		Me.txtPassword.Size = New System.Drawing.Size(100, 21)
 		Me.txtPassword.TabIndex = 12
 		Me.txtPassword.Text = "hola"
@@ -258,6 +259,6 @@ Partial Class frmLogin
 	Friend WithEvents txtPassword As System.Windows.Forms.TextBox
 	Friend WithEvents lblUsuario As DevExpress.XtraEditors.LabelControl
 	Friend WithEvents txtUsuario As System.Windows.Forms.TextBox
-	Friend WithEvents rtxt2 As System.Windows.Forms.RichTextBox
 	Friend WithEvents rtxt1 As System.Windows.Forms.RichTextBox
+	Friend WithEvents rtxt2 As System.Windows.Forms.RichTextBox
 End Class

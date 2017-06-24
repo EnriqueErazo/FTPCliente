@@ -1,11 +1,12 @@
 ﻿Imports System
 Imports System.IO
+Imports System.Security.Cryptography
 Imports System.Threading
 Imports System.Xml.Serialization
 
 Public Class frmCliente
-	Dim WithEvents WinSockCliente As New Cliente : Private _demo As Thread = Nothing : Dim _texto As String : Dim _valor1 As String : Dim _valor2 As String
-	Dim _valor3 As String : Dim _respuesta As String : Private Delegate Sub SetTextCallback(ByVal [text1] As String)
+	Dim WithEvents WinSockCliente As New Cliente : Private _demo As Thread = Nothing : Dim _texto As String
+	Dim _valor1, _valor2, _valor3, _hash, _respuesta As String : Private Delegate Sub SetTextCallback(ByVal [text1] As String)
 	Public Property Encrip As MD5_3DS = New MD5_3DS
 	Private Sub frmMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 		rbControl.Minimized = True
@@ -24,8 +25,14 @@ Public Class frmCliente
 			pnlArchivos.Visible = True
 			pnlBitacora.Visible = False
 		ElseIf rbControl.SelectedPage.Text = "Bitacora" Then
-			pnlBitacora.Visible = True
-			pnlArchivos.Visible = False
+			Using md5Hash As MD5 = MD5.Create()
+				Dim tiempo = TimeOfDay.Hour().ToString() & ":" & TimeOfDay.Minute().ToString()
+				Dim unlock As String = Encrip.Md5Encryta(md5Hash, ManejoXml.Key(tiempo))
+				_valor1 = frmLogin.txtUsuario.Text
+				frmLogin.WinSockCliente.EnviarDatos(Encrip.EncryptString(ManejoXml.SerialiazarXml(_valor1, "", "", unlock, "Bitacora")))
+				pnlBitacora.Visible = True
+				pnlArchivos.Visible = False
+			End Using
 		ElseIf rbControl.SelectedPage.Text = "Contactos" Then
 			pnlBitacora.Visible = False
 			pnlArchivos.Visible = False
@@ -44,12 +51,16 @@ Public Class frmCliente
 				Dim datos As String = selector.FileName
 				Dim detalle As New FileInfo(datos)
 				lblBajar.Caption = "Ruta descarga: " : lblSubir.Caption = "Ruta carga: " & selector.FileName
-				_valor1 = frmLogin.txtUsuario.Text
-				_valor2 = detalle.Name
-				_valor3 = codifica(selector.FileName)
-				frmLogin.WinSockCliente.EnviarDatos(Encrip.EncryptString(ManejoXml.SerialiazarXml(_valor1, _valor2, _valor3, "Archivo")))
-				'rtxt1.Text = Encrip.EncryptString(XML.SerialiazarXml(usuario, valor2, funcion))
-				'rtxt2.Text = XML.SerialiazarXml(usuario, valor2, funcion)
+				Dim tiempo = TimeOfDay.Hour() & ":" & TimeOfDay.Minute()
+				Using md5Hash As MD5 = MD5.Create()
+					_valor1 = frmLogin.txtUsuario.Text
+					_valor2 = detalle.Name
+					_valor3 = codifica(selector.FileName)
+					Dim unlock As String = Encrip.Md5Encryta(md5Hash, ManejoXml.Key(tiempo))
+					frmLogin.WinSockCliente.EnviarDatos(Encrip.EncryptString(ManejoXml.SerialiazarXml(_valor1, _valor2, _valor3, unlock, "Archivo")))
+					'rtxt1.Text = Encrip.EncryptString(XML.SerialiazarXml(usuario, valor2, funcion))
+					'rtxt2.Text = XML.SerialiazarXml(usuario, valor2, funcion)
+				End Using
 			End If
 		Catch ex As Exception
 			MessageBox.Show(ex.Message & vbCr & "Intente de Nuevo")
@@ -69,6 +80,10 @@ Public Class frmCliente
 		'Using md5Hash As MD5 = MD5.Create()
 		'WinSockCliente.EnviarDatos(Encrip.EncryptString(XML.Login(lbl1.Text, Encrip.Md5Encryta(md5Hash, lbl2.Text), 2)))
 		'End Using
+		If Deserializar(frmLogin.rtxt2.Text) = "Bitacora" Then
+			MsgBox("hola")
+		End If
+
 	End Sub
 	Private Sub frmCliente_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
 		End
@@ -77,7 +92,7 @@ Public Class frmCliente
 		End
 	End Sub
 	Private Sub btnCerrar_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnCerrar.ItemClick
-
+		WinSockCliente.Desconectar()
 	End Sub
 	Private Sub ThreadProcSafe()
 		SetText(_texto)
@@ -87,18 +102,13 @@ Public Class frmCliente
 		' InvokeRequired required compares the thread ID of the
 		' calling thread to the thread ID of the creating thread.
 		' If these threads are different, it returns true.
-		If rtxt1.InvokeRequired Then
+		If frmLogin.rtxt1.InvokeRequired Then
 			Dim d As New SetTextCallback(AddressOf SetText)
 			Invoke(d, New Object() {[text1]})
 		Else
-			rtxt1.Text = text1
-			'DLogin(Encrip.DecryptString(rtxt1.Text))
-			'If _respuesta = 1 Then
-			'	Hide() : frmCliente.Show()
-			'Else
-			'	MsgBox("Datos ingresados son incorrectos, intente de nuevo")
-			'	btnLimpiar.PerformClick()
-			'End If
+			frmLogin.rtxt1.Text = text1
+			frmLogin.rtxt2.Text = Deserializar(frmLogin.rtxt1.Text)
+			
 			'rtxt2.Text = Encrip.EncryptString(text1)
 		End If
 	End Sub
@@ -112,7 +122,7 @@ Public Class frmCliente
 		frmLogin.txtIP1.Enabled = True : frmLogin.txtIP2.Enabled = True : frmLogin.txtIP3.Enabled = True : frmLogin.txtIP4.Enabled = True : frmLogin.txtPuerto.Enabled = True
 		frmLogin.txtIP1.Clear() : frmLogin.txtIP2.Clear() : frmLogin.txtIP3.Clear() : frmLogin.txtIP4.Clear() : frmLogin.txtPuerto.Clear()
 	End Sub
-	Function codifica(ByVal srcFile As String)
+	Function Codifica(ByVal srcFile As String)
 		Try
 			Dim value As String = Convert.ToBase64String(My.Computer.FileSystem.ReadAllBytes(srcFile)) : Return value
 		Catch ex As Exception
@@ -125,7 +135,7 @@ Public Class frmCliente
 		Using reader1 As New StringReader(str)
 			items1 = CType(serializer1.Deserialize(reader1), XML)
 		End Using
-		_valor1 = items1.valor1 : _valor2 = items1.valor2 : _valor3 = items1.valor3 : _respuesta = items1.Funcion
+		_valor1 = items1.Valor1 : _valor2 = items1.Valor2 : _valor3 = items1.Valor3 : _hash = items1.Hash : _respuesta = items1.Funcion
 		Return _respuesta
 	End Function
 End Class

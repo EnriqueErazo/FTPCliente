@@ -52,10 +52,6 @@ Partial Class frmCliente
 		Me.BarEditItem1 = New DevExpress.XtraBars.BarEditItem()
 		Me.pnlBitacora = New DevExpress.XtraEditors.PanelControl()
 		Me.DataGridView2 = New System.Windows.Forms.DataGridView()
-		Me.rtxt1 = New System.Windows.Forms.RichTextBox()
-		Me.rtxt2 = New System.Windows.Forms.RichTextBox()
-		Me.lbl1 = New System.Windows.Forms.Label()
-		Me.lbl2 = New System.Windows.Forms.Label()
 		CType(Me.rbControl, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.RepositoryItemRichTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.RepositoryItemMemoEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -311,50 +307,12 @@ Partial Class frmCliente
 		Me.DataGridView2.Size = New System.Drawing.Size(646, 525)
 		Me.DataGridView2.TabIndex = 0
 		'
-		'rtxt1
-		'
-		Me.rtxt1.Location = New System.Drawing.Point(338, 77)
-		Me.rtxt1.Name = "rtxt1"
-		Me.rtxt1.Size = New System.Drawing.Size(161, 65)
-		Me.rtxt1.TabIndex = 6
-		Me.rtxt1.Text = ""
-		'
-		'rtxt2
-		'
-		Me.rtxt2.Location = New System.Drawing.Point(505, 77)
-		Me.rtxt2.Name = "rtxt2"
-		Me.rtxt2.Size = New System.Drawing.Size(164, 65)
-		Me.rtxt2.TabIndex = 7
-		Me.rtxt2.Text = ""
-		'
-		'lbl1
-		'
-		Me.lbl1.AutoSize = True
-		Me.lbl1.Location = New System.Drawing.Point(335, 61)
-		Me.lbl1.Name = "lbl1"
-		Me.lbl1.Size = New System.Drawing.Size(39, 13)
-		Me.lbl1.TabIndex = 8
-		Me.lbl1.Text = "Label1"
-		'
-		'lbl2
-		'
-		Me.lbl2.AutoSize = True
-		Me.lbl2.Location = New System.Drawing.Point(502, 61)
-		Me.lbl2.Name = "lbl2"
-		Me.lbl2.Size = New System.Drawing.Size(39, 13)
-		Me.lbl2.TabIndex = 9
-		Me.lbl2.Text = "Label2"
-		'
 		'frmCliente
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
 		Me.ClientSize = New System.Drawing.Size(681, 696)
-		Me.Controls.Add(Me.lbl2)
-		Me.Controls.Add(Me.lbl1)
-		Me.Controls.Add(Me.rtxt2)
-		Me.Controls.Add(Me.rtxt1)
 		Me.Controls.Add(Me.pnlArchivos)
 		Me.Controls.Add(Me.rbControl)
 		Me.Controls.Add(Me.pnlBitacora)
@@ -409,9 +367,5 @@ Partial Class frmCliente
 	Friend WithEvents btnSalir As DevExpress.XtraBars.BarButtonItem
 	Friend WithEvents btnSalida As DevExpress.XtraBars.Ribbon.RibbonPage
 	Friend WithEvents rpgSalir As DevExpress.XtraBars.Ribbon.RibbonPageGroup
-	Friend WithEvents rtxt1 As System.Windows.Forms.RichTextBox
-	Friend WithEvents rtxt2 As System.Windows.Forms.RichTextBox
-	Friend WithEvents lbl1 As System.Windows.Forms.Label
-	Friend WithEvents lbl2 As System.Windows.Forms.Label
 
 End Class
